@@ -27,3 +27,5 @@ PvPTraining is a Minecraft Paper Plugin for Minecraft version 1.19, with this pl
 | `/training spawn`                 | Spawn the PvP Zombie                                         |
 | `/training despawn `         | Despawn the PvP Zombie                                          |
 | `/training reload`                  | Reload the config.yml File.       |
+
+<hr>
