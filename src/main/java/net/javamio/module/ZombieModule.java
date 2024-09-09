@@ -1,7 +1,7 @@
 package net.javamio.module;
 
 import net.javamio.Training;
-import net.javamio.utility.MessageUtils;
+import net.javamio.utility.ConfigUtil;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -19,7 +19,7 @@ public class ZombieModule {
     public static void spawnZombie(Player player) {
         Entity entity = player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
 
-        String displayName = MessageUtils.getMessage("zombie-totem.display-name").replace("%player%", player.getName());
+        String displayName = ConfigUtil.getMessage("zombie-totem.display-name").replace("%player%", player.getName());
 
         entity.setCustomName(displayName);
         entity.setCustomNameVisible(true);
@@ -51,7 +51,7 @@ public class ZombieModule {
         NamespacedKey key = new NamespacedKey(Training.getInstance(), "totem_zombie_owner");
         zombie.getPersistentDataContainer().set(key, PersistentDataType.STRING, player.getUniqueId().toString());
 
-        MessageUtils.getMessage("messages.totem-zombie-spawn.success").replace("%player%", player.getName());
+        ConfigUtil.getMessage("messages.totem-zombie-spawn.success").replace("%player%", player.getName());
     }
 
     public static void despawnZombie(Player player) {
@@ -63,12 +63,12 @@ public class ZombieModule {
                     String owner = zombie.getPersistentDataContainer().get(key, PersistentDataType.STRING);
                     if (owner.equals(player.getUniqueId().toString())) {
                         zombie.remove();
-                        MessageUtils.getMessage("messages.totem-zombie-despawn.success").replace("%player%", player.getName());
+                        ConfigUtil.getMessage("messages.totem-zombie-despawn.success").replace("%player%", player.getName());
                         return;
                     }
                 }
             }
         }
-        MessageUtils.getMessage("messages.totem-zombie-despawn.fail").replace("%player%", player.getName());
+        ConfigUtil.getMessage("messages.totem-zombie-despawn.fail").replace("%player%", player.getName());
     }
 }

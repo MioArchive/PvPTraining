@@ -6,7 +6,7 @@ import net.md_5.bungee.api.ChatColor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MessageUtils {
+public class ConfigUtil {
 
     public static String getMessage(String key) {
         return translateColorCodes(Training.getInstance().getConfig().getString(key, ""));

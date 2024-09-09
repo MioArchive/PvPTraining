@@ -2,7 +2,7 @@ package net.javamio.command;
 
 import net.javamio.Training;
 import net.javamio.module.ZombieModule;
-import net.javamio.utility.MessageUtils;
+import net.javamio.utility.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,25 +17,27 @@ import java.util.List;
 
 public class TrainingCommand implements CommandExecutor, TabCompleter {
 
+    //TODO = Remake this Class, since its pretty ma
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) {
             if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 Training.getInstance().reloadConfig();
-                sender.sendMessage(MessageUtils.getMessage("messages.reload.success"));
+                sender.sendMessage(ConfigUtil.getMessage("messages.reload.success"));
                 return true;
             }
-            sender.sendMessage(MessageUtils.getMessage("messages.error.player-only"));
+            sender.sendMessage(ConfigUtil.getMessage("messages.error.player-only"));
             return true;
         }
 
         if (args.length == 0) {
-            player.sendMessage(MessageUtils.getMessage("messages.error.no-args"));
+            player.sendMessage(ConfigUtil.getMessage("messages.error.no-args"));
             return false;
         }
 
         if (!player.hasPermission("training.use")) {
-            player.sendMessage(MessageUtils.getMessage("messages.error.no-permission"));
+            player.sendMessage(ConfigUtil.getMessage("messages.error.no-permission"));
             return false;
         }
 
@@ -51,14 +53,14 @@ public class TrainingCommand implements CommandExecutor, TabCompleter {
             case "reload" -> {
                 if (player.hasPermission("training.reload")) {
                     Training.getInstance().reloadConfig();
-                    player.sendMessage(MessageUtils.getMessage("messages.reload.success"));
+                    player.sendMessage(ConfigUtil.getMessage("messages.reload.success"));
                 } else {
-                    player.sendMessage(MessageUtils.getMessage("messages.error.no-permission"));
+                    player.sendMessage(ConfigUtil.getMessage("messages.error.no-permission"));
                 }
                 return true;
             }
             default -> {
-                player.sendMessage(MessageUtils.getMessage("messages.error.invalid-command"));
+                player.sendMessage(ConfigUtil.getMessage("messages.error.invalid-command"));
                 return false;
             }
         }

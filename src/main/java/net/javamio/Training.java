@@ -1,10 +1,14 @@
 package net.javamio;
 
+import lombok.Getter;
 import net.javamio.command.TrainingCommand;
+import net.javamio.listener.ZombieListener;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Training extends JavaPlugin {
 
+    @Getter
     private static Training instance;
 
     @Override
@@ -13,9 +17,6 @@ public class Training extends JavaPlugin {
         saveDefaultConfig();
         getCommand("training").setExecutor(new TrainingCommand());
         getCommand("training").setTabCompleter(new TrainingCommand());
-    }
-
-    public static Training getInstance() {
-        return instance;
+        Bukkit.getServer().getPluginManager().registerEvents(new ZombieListener(),this);
     }
 }
