@@ -1,7 +1,6 @@
 package net.javamio.listener;
 
-import net.javamio.module.ZombieModule;
-import org.bukkit.entity.Player;
+import net.javamio.Training;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -12,12 +11,12 @@ public class ZombieListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        ZombieModule.despawnZombie(event.getPlayer());
+        Training.getInstance().getZombieModule().despawnZombie(event.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        ZombieModule.despawnZombie(event.getPlayer());
+        Training.getInstance().getZombieModule().despawnZombie(event.getPlayer());
     }
 
     @EventHandler
@@ -25,7 +24,6 @@ public class ZombieListener implements Listener {
         if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
             return;
         }
-        Player player = event.getPlayer();
-        ZombieModule.despawnZombie(player);
+        Training.getInstance().getZombieModule().despawnZombie(event.getPlayer());
     }
 }

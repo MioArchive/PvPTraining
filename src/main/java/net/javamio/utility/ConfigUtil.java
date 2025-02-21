@@ -16,6 +16,7 @@ public class ConfigUtil {
         return translateColorCodes(Training.getInstance().getConfig().getString("Messages.Prefix", ""));
     }
 
+    //Credits - @VertrauterDavid <33
 
     public static String translateColorCodes(String message) {
         Pattern pattern = Pattern.compile("&#([A-Fa-f0-9]{6})");

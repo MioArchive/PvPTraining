@@ -16,7 +16,7 @@ import static net.javamio.utility.ItemBuilder.createArmorItem;
 
 public class ZombieModule {
 
-    public static void spawnZombie(Player player) {
+    public void spawnZombie(Player player) {
         Entity entity = player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
 
         String displayName = ConfigUtil.getMessage("zombie-totem.display-name").replace("%player%", player.getName());
@@ -54,7 +54,7 @@ public class ZombieModule {
         ConfigUtil.getMessage("messages.totem-zombie-spawn.success").replace("%player%", player.getName());
     }
 
-    public static void despawnZombie(Player player) {
+    public void despawnZombie(Player player) {
         for (Entity entity : player.getLocation().getWorld().getEntities()) {
             if (entity.getType() == EntityType.ZOMBIE) {
                 Zombie zombie = (Zombie) entity;

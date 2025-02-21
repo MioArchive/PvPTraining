@@ -1,7 +1,6 @@
 package net.javamio.command;
 
 import net.javamio.Training;
-import net.javamio.module.ZombieModule;
 import net.javamio.utility.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class TrainingCommand implements CommandExecutor, TabCompleter {
 
-    //TODO = Remake this Class, since its pretty ma
+    //TODO = Remake this Class, since its pretty massy
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -43,11 +42,11 @@ public class TrainingCommand implements CommandExecutor, TabCompleter {
 
         switch (args[0].toLowerCase()) {
             case "spawn" -> {
-                ZombieModule.spawnZombie(player);
+                Training.getInstance().getZombieModule().spawnZombie(player);
                 return true;
             }
             case "despawn" -> {
-                ZombieModule.despawnZombie(player);
+                Training.getInstance().getZombieModule().despawnZombie(player);
                 return true;
             }
             case "reload" -> {
