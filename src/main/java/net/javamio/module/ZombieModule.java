@@ -51,7 +51,8 @@ public class ZombieModule {
         NamespacedKey key = new NamespacedKey(Training.getInstance(), "totem_zombie_owner");
         zombie.getPersistentDataContainer().set(key, PersistentDataType.STRING, player.getUniqueId().toString());
 
-        ConfigUtil.getMessage("messages.totem-zombie-spawn.success").replace("%player%", player.getName());
+        player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("messages.training-zombie.success")); //Mio you've stoped here. confirm here after your birthday. <3
+        ConfigUtil.getMessage("messages.training-zombie.success").replace("%player%", player.getName());
     }
 
     public void despawnZombie(Player player) {

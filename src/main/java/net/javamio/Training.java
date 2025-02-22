@@ -25,10 +25,8 @@ public class Training extends JavaPlugin {
         saveDefaultConfig();
 
         this.zombieModule = new ZombieModule();
+        new TrainingCommand();
 
-        getCommand("training").setExecutor(new TrainingCommand());
-        getCommand("training").setTabCompleter(new TrainingCommand());
-
-        Bukkit.getServer().getPluginManager().registerEvents(new ZombieListener(),instance);
+        Bukkit.getServer().getPluginManager().registerEvents(new ZombieListener(), instance);
     }
 }

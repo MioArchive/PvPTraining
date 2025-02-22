@@ -11,32 +11,30 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrainingCommand implements CommandExecutor, TabCompleter {
 
-    //TODO = Remake this Class, since its pretty massy
+    private final List<String> subCommands;
+
+    public TrainingCommand() {
+        this.subCommands = List.of("spawn","reload","despawn");
+        Training.getInstance().getCommand("train").setExecutor(this);
+        Training.getInstance().getCommand("train").setTabCompleter(this);
+    }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-                Training.getInstance().reloadConfig();
-                sender.sendMessage(ConfigUtil.getMessage("messages.reload.success"));
-                return true;
-            }
-            sender.sendMessage(ConfigUtil.getMessage("messages.error.player-only"));
-            return true;
-        }
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) return false;
 
-        if (args.length == 0) {
-            player.sendMessage(ConfigUtil.getMessage("messages.error.no-args"));
+        if (!player.hasPermission("training.use")) {
+            player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("messages.no-permission"));
             return false;
         }
 
-        if (!player.hasPermission("training.use")) {
-            player.sendMessage(ConfigUtil.getMessage("messages.error.no-permission"));
+        if (args.length == 0) {
+            player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("messages.no-args"));
             return false;
         }
 
@@ -52,14 +50,14 @@ public class TrainingCommand implements CommandExecutor, TabCompleter {
             case "reload" -> {
                 if (player.hasPermission("training.reload")) {
                     Training.getInstance().reloadConfig();
-                    player.sendMessage(ConfigUtil.getMessage("messages.reload.success"));
+                    player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("messages.reload"));
                 } else {
-                    player.sendMessage(ConfigUtil.getMessage("messages.error.no-permission"));
+                    player.sendMessage(ConfigUtil.getMessage(ConfigUtil.getPrefix() + "messages.no-permission"));
                 }
                 return true;
             }
             default -> {
-                player.sendMessage(ConfigUtil.getMessage("messages.error.invalid-command"));
+                player.sendMessage(ConfigUtil.getMessage(ConfigUtil.getPrefix() + "messages.no-args"));
                 return false;
             }
         }
@@ -67,20 +65,15 @@ public class TrainingCommand implements CommandExecutor, TabCompleter {
 
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player) || !player.hasPermission("training.use")) {
-            return new ArrayList<>();
-        }
-
-        List<String> completions = new ArrayList<>();
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) return new ArrayList<>();
+        if (!(player.hasPermission("training.use"))) return new ArrayList<>();
 
         if (args.length == 1) {
-            completions.addAll(Arrays.asList("spawn", "despawn", "reload"));
+            return subCommands.stream()
+                    .filter(sc -> sc.startsWith(args[0].toLowerCase()))
+                    .collect(Collectors.toList());
         }
-
-        return completions.stream()
-                .filter(s -> s.startsWith(args[args.length - 1].toLowerCase()))
-                .sorted()
-                .toList();
+        return new ArrayList<>();
     }
 }

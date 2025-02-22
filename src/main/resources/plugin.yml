@@ -3,7 +3,7 @@ version: 1.0
 api-version: 1.19
 main: net.javamio.Training
 author: JavaMio
-website: https://github.com/MioArchive
+website: https://mio.wtf
 description: A plugin which spawns a zombie for PvP Practice
 
 commands:

@@ -1,15 +1,18 @@
+
+
 messages:
-  totem-zombie-spawn:
-    success: 'TotemZombie spawned!'
-    fail: 'TotemZombie already spawned!'
-  totem-zombie-despawn:
-    success: 'TotemZombie despawned!'
-    fail: 'TotemZombie not spawned!'
-  reload:
-    success: 'TotemZombie reloaded!'
-  error:
-    player-only: "This command can only be executed by a player!"
-    no-args: "Please provide an argument!"
-    no-permission: "You don't have permission to execute this command!"
-zombie-totem:
+  prefix: "&dPractice ->" #Prefix for all messages, leave this blank if you don't want a preifx.
+  no-permission: "&cYou don't have the required permission to execute this command!"
+  no-args: "&cPlease provide an argument!"
+  reload: "&aYou have successfully reloaded the training plugin"
+
+  training-zombie:
+    spawn:
+      success: "&aTraining zombie has been spawned!"
+      fail: "&cTraining zombie is already spawned!"
+    despawn:
+      success: "&aTraining zombie has been despawned!"
+      fail: "&cTraining zombie is not spawned!"
+
+training-zombie:
   display-name: '&aTotemZombie'
