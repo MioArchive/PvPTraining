@@ -19,7 +19,7 @@ public class ZombieModule {
     public void spawnZombie(Player player) {
         Entity entity = player.getLocation().getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
 
-        String displayName = ConfigUtil.getMessage("zombie-totem.display-name").replace("%player%", player.getName());
+        String displayName = ConfigUtil.getMessage("training-zombie.display-name").replace("%player%", player.getName());
 
         entity.setCustomName(displayName);
         entity.setCustomNameVisible(true);
@@ -48,7 +48,7 @@ public class ZombieModule {
 
         zombie.getEquipment().setItemInOffHandDropChance(0.0F);
 
-        NamespacedKey key = new NamespacedKey(Training.getInstance(), "totem_zombie_owner");
+        NamespacedKey key = new NamespacedKey(Training.getInstance(), "zombie_owner");
         zombie.getPersistentDataContainer().set(key, PersistentDataType.STRING, player.getUniqueId().toString());
 
         player.sendMessage(ConfigUtil.getPrefix() + ConfigUtil.getMessage("messages.training-zombie.spawn.success").replace("%player%",player.getName()));
@@ -58,7 +58,7 @@ public class ZombieModule {
         for (Entity entity : player.getLocation().getWorld().getEntities()) {
             if (entity.getType() == EntityType.ZOMBIE) {
                 Zombie zombie = (Zombie) entity;
-                NamespacedKey key = new NamespacedKey(Training.getPlugin(Training.class), "totem_zombie_owner");
+                NamespacedKey key = new NamespacedKey(Training.getInstance(), "zombie_owner");
                 if (zombie.getPersistentDataContainer().has(key, PersistentDataType.STRING)) {
                     String owner = zombie.getPersistentDataContainer().get(key, PersistentDataType.STRING);
                     if (owner.equals(player.getUniqueId().toString())) {
