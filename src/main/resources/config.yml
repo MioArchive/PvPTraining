@@ -9,10 +9,9 @@ messages:
   training-zombie:
     spawn:
       success: "&aTraining zombie has been spawned!"
-      fail: "&cTraining zombie is already spawned!"
     despawn:
       success: "&aTraining zombie has been despawned!"
       fail: "&cTraining zombie is not spawned!"
 
 training-zombie:
-  display-name: '&aTotemZombie' #You're able to use the %player% placeholder here to get the name off the user.
+  display-name: '&aTraining Zombie &8(%player%)' #You're able to use the %player% placeholder here to get the name off the user.

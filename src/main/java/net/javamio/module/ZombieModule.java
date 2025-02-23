@@ -63,12 +63,12 @@ public class ZombieModule {
                     String owner = zombie.getPersistentDataContainer().get(key, PersistentDataType.STRING);
                     if (owner.equals(player.getUniqueId().toString())) {
                         zombie.remove();
-                        ConfigUtil.getMessage("messages.totem-zombie-despawn.success").replace("%player%", player.getName());
+                        ConfigUtil.getMessage("messages.training-zombie-despawn.success").replace("%player%", player.getName());
                         return;
                     }
                 }
             }
         }
-        ConfigUtil.getMessage("messages.totem-zombie-despawn.fail").replace("%player%", player.getName());
+        ConfigUtil.getMessage("messages.training-zombie-despawn.fail").replace("%player%", player.getName());
     }
 }
