@@ -1,4 +1,4 @@
-package net.javamio.utility;
+package net.javamio.util;
 
 import net.javamio.Training;
 import net.md_5.bungee.api.ChatColor;
