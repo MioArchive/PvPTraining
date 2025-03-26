@@ -13,8 +13,6 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import static net.javamio.util.ItemBuilder.createArmorItem;
-
 public class ZombieModule {
 
     public void spawnZombie(Player player) {

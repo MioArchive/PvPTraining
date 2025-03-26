@@ -1,7 +1,7 @@
 package net.javamio.command;
 
 import net.javamio.Training;
-import net.javamio.utility.ConfigUtil;
+import net.javamio.util.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
