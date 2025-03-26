@@ -5,7 +5,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import xyz.xenondevs.inventoryaccess.component.AdventureComponentWrapper;
+import xyz.xenondevs.invui.item.ItemProvider;
 import xyz.xenondevs.invui.item.builder.AbstractItemBuilder;
+
+import java.util.List;
 
 public class ItemStackBuilder extends AbstractItemBuilder<ItemStackBuilder> {
     public ItemStackBuilder(@NotNull Material material) {
