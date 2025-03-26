@@ -1,7 +1,8 @@
 package net.javamio.module;
 
 import net.javamio.Training;
-import net.javamio.utility.ConfigUtil;
+import net.javamio.util.ConfigUtil;
+import net.javamio.util.ItemStackBuilder;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import static net.javamio.utility.ItemBuilder.createArmorItem;
+import static net.javamio.util.ItemBuilder.createArmorItem;
 
 public class ZombieModule {
 
@@ -27,12 +28,12 @@ public class ZombieModule {
         Zombie zombie = (Zombie) entity;
         zombie.setTarget(player);
 
-        ItemStack helmet = createArmorItem(Material.NETHERITE_HELMET, Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-        ItemStack chestplate = createArmorItem(Material.NETHERITE_CHESTPLATE, Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-        ItemStack leggings = createArmorItem(Material.NETHERITE_LEGGINGS, Enchantment.PROTECTION_EXPLOSIONS, 3);
-        ItemStack boots = createArmorItem(Material.NETHERITE_BOOTS, Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        ItemStack helmet = new ItemStackBuilder(Material.NETHERITE_HELMET).addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,4,false).get();
+        ItemStack chestplate = new ItemStackBuilder(Material.NETHERITE_CHESTPLATE).addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,4,false).get();
+        ItemStack leggings = new ItemStackBuilder(Material.NETHERITE_LEGGINGS).addEnchantment(Enchantment.PROTECTION_EXPLOSIONS,3,false).get();
+        ItemStack boots = new ItemStackBuilder(Material.NETHERITE_BOOTS).addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL,4,false).get();
 
-        ItemStack totems = new ItemStack(Material.TOTEM_OF_UNDYING, 64);
+        ItemStack totems = new ItemStackBuilder(Material.TOTEM_OF_UNDYING).setAmount(64).get();
 
         zombie.getEquipment().setHelmet(helmet);
         zombie.getEquipment().setChestplate(chestplate);
@@ -55,20 +56,21 @@ public class ZombieModule {
     }
 
     public void despawnZombie(Player player) {
-        for (Entity entity : player.getLocation().getWorld().getEntities()) {
-            if (entity.getType() == EntityType.ZOMBIE) {
-                Zombie zombie = (Zombie) entity;
-                NamespacedKey key = new NamespacedKey(Training.getInstance(), "zombie_owner");
-                if (zombie.getPersistentDataContainer().has(key, PersistentDataType.STRING)) {
-                    String owner = zombie.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-                    if (owner.equals(player.getUniqueId().toString())) {
-                        zombie.remove();
-                        ConfigUtil.getMessage("messages.training-zombie-despawn.success").replace("%player%", player.getName());
-                        return;
-                    }
-                }
+        NamespacedKey key = new NamespacedKey(Training.getInstance(), "zombie_owner");
+        boolean found = false;
+
+        for (Entity entity : player.getWorld().getEntitiesByClass(Zombie.class)) {
+            Zombie zombie = (Zombie) entity;
+            String owner = zombie.getPersistentDataContainer().get(key, PersistentDataType.STRING);
+
+            if (owner != null && owner.equals(player.getUniqueId().toString())) {
+                zombie.remove();
+                found = true;
+                break;
             }
         }
-        ConfigUtil.getMessage("messages.training-zombie-despawn.fail").replace("%player%", player.getName());
+
+        String messageKey = found ? "messages.training-zombie-despawn.success" : "messages.training-zombie-despawn.fail";
+        player.sendMessage(ConfigUtil.getMessage(messageKey).replace("%player%", player.getName()));
     }
 }
